@@ -1992,12 +1992,6 @@ where
             | DialError::Denied { .. }
             | DialError::Transport(_)
             | DialError::NoAddresses => {
-                if let DialError::Transport(addresses) = error {
-                    for (addr, _) in addresses {
-                        self.address_failed(peer_id, addr)
-                    }
-                }
-
                 for query in self.queries.iter_mut() {
                     query.on_failure(&peer_id);
                 }
